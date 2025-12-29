@@ -9,7 +9,7 @@ def run_python_file(working_directory, file_path, args=None):
 
     valid_target_dir = os.path.commonpath([absolute_path, target_dir]) == absolute_path
 
-    if valid_target_dir == False:
+    if not valid_target_dir:
         return f'Error: Cannot execute "{file_path}" as it is outside the permitted working directory'
     if not os.path.isfile(target_dir):
         return f'Error: "{file_path}" does not exist or is not a regular file'
@@ -37,7 +37,7 @@ def run_python_file(working_directory, file_path, args=None):
 
 schema_run_python_file = types.FunctionDeclaration(
     name="run_python_file",
-    description="Executes a python file given a provided file path to a python file, and any optional arguments for the file, returns any output from the file's execution",
+    description="Executes a python file given a provided file path to a python file, and any optional arguments for the file, returns any output from the file's execution, use this tool whenever asked to run a python file",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={

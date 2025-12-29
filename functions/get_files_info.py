@@ -9,19 +9,18 @@ def get_files_info(working_directory, directory="."):
     valid_target_dir = os.path.commonpath([absolute_path, target_dir]) == absolute_path
     if not os.path.isdir(target_dir):
         return f'Error: "{directory}" is not a directory'
-    if valid_target_dir == False:
+    if not valid_target_dir:
         return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
     else:
         data = ''
         for thing in os.listdir(target_dir):
-           # print(thing)
-           # print(os.path.getsize(abs2 +"/" + thing))
-            data = data + f"- {thing}: file_size={os.path.getsize(target_dir +"/" + thing)} bytes, is_dir={os.path.isdir(target_dir +"/" + thing)} \n"
+        
+            data = data + f"- {thing}: file_size={os.path.getsize(target_dir + "/" + thing)} bytes, is_dir={os.path.isdir(target_dir +"/" + thing)} \n"
         return data
 
 schema_get_files_info = types.FunctionDeclaration(
     name="get_files_info",
-    description="Lists files in a specified directory relative to the working directory, providing file size and directory status",
+    description="Lists files in a specified directory relative to the working directory, providing file size and directory status, this does not provide the content of the files, do not use this function when asked about file content, do not use this function when asked about .txt file",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={

@@ -3,9 +3,6 @@ from google.genai import types
 def get_file_content(working_directory, file_path):
     try:
         absolute_path = os.path.abspath(working_directory)
-   
-
-
         target_dir = os.path.normpath(os.path.join(absolute_path, file_path))
         print(target_dir)
         valid_target_dir = os.path.commonpath([absolute_path, target_dir]) == absolute_path
@@ -33,13 +30,13 @@ def get_file_content(working_directory, file_path):
 #print(get_file_content("calculator", "lorem.txt"))
 schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
-    description="Reads and returns the content of a file, when provided with the path to the file",
+    description="Reads and returns the content of a file, when provided with the path to the file, use this when asked to provide the content of a text file, or a .txt file, if you are unsure where the file is, just assume its in the working directory",
     parameters=types.Schema(
         type=types.Type.OBJECT,
         properties={
             "file_path": types.Schema(
                 type=types.Type.STRING,
-                description="Path to the file to read content from, relative to the working directory",
+                description="When asked to read file content, put the file location here",
             ),
         },
     ),

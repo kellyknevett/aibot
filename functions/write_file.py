@@ -12,11 +12,12 @@ def write_file(working_directory, file_path, content):
     if os.path.isdir(target_dir):
         return f'Error: Cannot write to "{file_path}" as it is a directory'
     try:
-        os.makedirs(file_path, exist_ok=True)
+        print("/".join(target_dir.split("/")[0:-1]))
+        os.makedirs("/".join(target_dir.split("/")[0:-1]), exist_ok=True)
         with open(target_dir,mode="w") as f:
             f.write(content)
-    except FileExistsError:
-        return 'Error: The file didnt exist'
+    except Exception as e:
+        return e
     return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
 
 schema_write_file = types.FunctionDeclaration(
